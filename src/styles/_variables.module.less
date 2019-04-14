@@ -1,0 +1,51 @@
+@import './_colors.module.less';
+
+@base: 4px;
+@baseFontSize: 16;
+@point: .;
+
+@header: {
+  height: 50px;
+};
+@footer: {
+  height: 50px;
+};
+@sidebar: {
+  width: 0px;
+};
+@body: {
+  top: 50px;
+  bottom: 50px;
+  left: 50px;
+  right: 50px;
+  @sidebar: {
+    width: 300px;
+  };
+};
+@window: {
+  maxwidth: 1366px;
+};
+@windowSize: {
+  s: 360px;
+  m: 800px;
+  l: 1024px;
+  xl: @window[maxWidth];
+};
+@trans: {
+  default: 0.3s ease;
+};
+@border: {
+  default: 1px;
+};
+@zIndex: {
+  modal: 10;
+};
+@formField: {
+  bottomoffset: 10px;
+};
+:export {
+  windowSize@{point}s: @windowSize[s];
+  windowSize@{point}m: @windowSize[m];
+  windowSize@{point}l: @windowSize[l];
+  windowSize@{point}xl: @windowSize[xl];
+}

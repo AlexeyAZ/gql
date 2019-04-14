@@ -1,0 +1,5 @@
+@import '../../styles/variables';
+
+.wrap {
+  margin-bottom: map-get($map: $formField, $key: bottomOffset);
+}

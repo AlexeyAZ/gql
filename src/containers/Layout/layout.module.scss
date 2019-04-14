@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+
+.wrap {
+  padding-top: $headerHeight;
+  padding-bottom: $footerHeight;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+.wrapIntro {
+  composes: wrap;
+  background-image: url('/img/login-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.wrapThemed {
+  composes: wrap;
+  background-image: linear-gradient(233.59deg, #FFEBEB 0.84%, #FADAE5 9.84%, #EACBE9 21.25%, #CAC1F0 34.48%, #98BCF3 51.35%, #75B1E4 62.51%, #51A6D2 75.35%, #259BBE 88.35%, #2586A4 102.04%, #25728A 116.92%, #235F72 130.18%, #204C5A 144.61%);
+}
+.container {
+  overflow: auto;
+  position: relative;
+  height: 100%;
+}
