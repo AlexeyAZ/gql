@@ -1,25 +1,35 @@
-import React, { Fragment, Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import { withRouter } from 'react-router'
+import styled, { css } from 'styled-components'
 
-import { auth } from '../../helpers'
+const Wrap = styled.div`
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: ${props => props.theme.zIndex.modal};
+`
 
-import styles from './modal.module.scss'
+const Container = styled.div`
+  background-color: white;
+  padding: 20px;
+  max-width: ${props => props.theme.content.maxWidth};
+`
 
-const { logout, userIsAuth } = auth
-
-class Modal extends Component {
-  render() {
-    const { children } = this.props
-    return (
-      <div className={styles.wrap}>
-        <div className={styles.container}>{children}</div>
-      </div>
-    )
-  }
+const Modal = ({ children }) => (
+  <Wrap>
+    <Container>{children}</Container>
+  </Wrap>
+)
+Modal.propTypes = {
+  children: PropTypes.any,
 }
-
-Modal.propTypes = {}
-
+Modal.defaultProps = {
+  children: null,
+}
 export default Modal

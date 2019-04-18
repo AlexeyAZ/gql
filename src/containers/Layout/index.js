@@ -21,15 +21,17 @@ const { setAuthCookie, setUserIdCookie } = auth
 const { userIsAuth } = auth
 
 const Wrap = styled.div`
-  padding-top: ${props => props.theme.header.height};
-  padding-bottom: ${props => props.theme.footer.height};
-  position: relative;
-  overflow: hidden;
-  height: 100vh;
+  ${props =>
+    css`
+      padding-top: ${props.theme.header.height};
+      padding-bottom: ${props.theme.footer.height};
+      position: relative;
+      height: 100%;
+    `}
   ${props =>
     props.isAuth
       ? css`
-          background-image: ${props => props.theme.layout.gradient};
+          background-image: ${props.theme.layout.gradient};
         `
       : css`
           background-image: url('/img/login-bg.jpg');
@@ -86,36 +88,34 @@ class Layout extends Component {
     } = this.props
     const isAuth = userIsAuth()
     return (
-      <>
-        <Wrap isAuth={isAuth}>
-          {!status && (
-            <Modal>
-              <FormLogin onFormSubmit={this.handleSubmit} />
-            </Modal>
-          )}
-          <Header />
-          {status && (
-            <Container>
-              <Routing routes={routes} userIsAuth={isAuth} />
-            </Container>
-          )}
-          <Footer />
-        </Wrap>
-      </>
+      <Wrap isAuth={isAuth}>
+        {!status && (
+          <Modal>
+            <FormLogin onFormSubmit={this.handleSubmit} />
+          </Modal>
+        )}
+        <Header />
+        <Container>
+          {status && <Routing routes={routes} userIsAuth={isAuth} status={status} />}
+        </Container>
+        <Footer />
+      </Wrap>
     )
   }
 }
+Layout.propTypes = {
+  auth: PropTypes.object.isRequired,
+  client: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+}
 
-Layout.propTypes = {}
-
-export default withRouter(
-  compose(
-    withApollo,
-    graphql(queries.auth.GET_AUTH_STATUS, {
-      name: 'auth',
-    }),
-    graphql(mutations.auth.SET_AUTH_STATUS, {
-      name: 'setAuth',
-    })
-  )(Layout)
-)
+export default compose(
+  withRouter,
+  withApollo,
+  graphql(queries.auth.GET_AUTH_STATUS, {
+    name: 'auth',
+  }),
+  graphql(mutations.auth.SET_AUTH_STATUS, {
+    name: 'setAuth',
+  })
+)(Layout)

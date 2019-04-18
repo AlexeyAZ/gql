@@ -1,22 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import posed, { PoseGroup } from 'react-pose'
+import styled from 'styled-components'
+
+import { Content } from '../../components'
 
 import PrivateRoute from './PrivateRoute'
 
-const RouteContainer = posed.div({
+const RouteWrap = posed.div({
   enter: { opacity: 1, delay: 300, beforeChildren: true },
-  exit: { opacity: 0, duration: 0, beforeChildren: true },
+  exit: { opacity: 0 },
 })
+
+const StyledWrap = styled(RouteWrap)`
+  height: 100%;
+  position: relative;
+`
 
 const Routing = ({ userIsAuth, redirectUrl, routes }) => {
   return (
     <Route
-      render={({ location }) => {
-        return (
-          <PoseGroup>
-            <RouteContainer key={location.pathname}>
+      render={({ location }) => (
+        <PoseGroup animateOnMount>
+          <StyledWrap key={location.pathname}>
+            <Content>
               <Switch location={location}>
                 {routes.map(route =>
                   route.private ? (
@@ -32,10 +40,10 @@ const Routing = ({ userIsAuth, redirectUrl, routes }) => {
                 )}
                 {/* <Route component={() => <Page404 supportLink="/support" />} /> */}
               </Switch>
-            </RouteContainer>
-          </PoseGroup>
-        )
-      }}
+            </Content>
+          </StyledWrap>
+        </PoseGroup>
+      )}
     />
   )
 }

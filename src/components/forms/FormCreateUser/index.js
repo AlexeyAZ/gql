@@ -1,10 +1,17 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 import { Input } from '../../index'
 
-import styles from './formCreateUser.module.scss'
+const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+`
+const Form = styled.form`
+  max-width: 200px;
+`
 
 class FormCreateUser extends Component {
   state = {
@@ -55,8 +62,8 @@ class FormCreateUser extends Component {
   render() {
     const { fields } = this.state
     return (
-      <div className={styles.wrap}>
-        <form onSubmit={this.handleFormSubmit} className={styles.form}>
+      <Wrap>
+        <Form onSubmit={this.handleFormSubmit}>
           {Object.keys(fields).map(field => (
             <Fragment key={field}>
               <Input
@@ -66,15 +73,16 @@ class FormCreateUser extends Component {
               />
             </Fragment>
           ))}
-          <button>Create account</button>
+          <button type="submit">Create account</button>
           {' or '}
           <Link to="/login">Sign in</Link>
-        </form>
-      </div>
+        </Form>
+      </Wrap>
     )
   }
 }
-
-FormCreateUser.propTypes = {}
+FormCreateUser.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+}
 
 export default FormCreateUser

@@ -1,26 +1,15 @@
-import React, { Component } from 'react'
-import cn from 'classnames'
+import React from 'react'
 import PropTypes from 'prop-types'
+import styled, { css } from 'styled-components'
 
-import styles from './sidebar.module.scss'
+const Wrap = styled.div``
 
-class Sidebar extends Component {
-  render() {
-    const { show, switchSidebar, hideSidebar, showSidebar, children } = this.props
-    return (
-      <div className={cn(styles.wrap, { [styles.visible]: show })}>
-        {/* <Menu hideSidebar={hideSidebar} showSidebar={showSidebar} switchSidebar={switchSidebar} /> */}
-        {children}
-      </div>
-    )
-  }
+const SidebarList = ({ children }) => <Wrap>{children}</Wrap>
+SidebarList.propTypes = {
+  children: PropTypes.any,
 }
-Window.propTypes = {
-  show: PropTypes.bool,
-  children: PropTypes.any.isRequired,
-}
-Window.defaultProps = {
-  show: true,
+SidebarList.defaultProps = {
+  children: null,
 }
 
-export default Sidebar
+export default SidebarList

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
 import get from 'lodash/get'
-import posed, { PoseGroup } from 'react-pose'
 
 import * as queries from '../../gql/queries'
 
@@ -10,10 +10,6 @@ import { Window } from '../../components'
 import { auth } from '../../helpers'
 
 const { getUserId } = auth
-
-const Container = posed.div({
-  enter: { staggerChildren: 50 },
-})
 
 const dataTemplate = {
   email: 'Email',
@@ -49,13 +45,14 @@ class User extends Component {
     )
   }
 }
+User.propTypes = {
+  user: PropTypes.object.isRequired,
+}
 
 export default compose(
   graphql(queries.users.GET_USER, {
     name: 'user',
     options: props => {
-      console.log(get(props, 'location.state.id', null))
-      console.log(getUserId())
       return {
         fetchPolicy: 'network-only',
         variables: { id: get(props, 'location.state.id', null) || getUserId() },

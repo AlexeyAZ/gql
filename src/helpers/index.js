@@ -1,2 +1,2 @@
 export { default as auth } from './auth'
-export { default as style } from './style'
+export { default as styleHelpers } from './styleHelpers'

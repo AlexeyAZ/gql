@@ -1,12 +1,13 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
-import { AllUsers, User, CreateUser, LoginUser } from '../containers/'
+import { AllUsers, User, CreateUser, LoginUser } from '../containers'
+
+import { Redirect } from '../components/index'
 
 const routes = [
   {
     path: '/',
     title: 'Пользователи',
-    render: () => <Redirect to="/users" />,
+    render: props => <Redirect to="/login" />,
     exact: true,
     private: false,
   },

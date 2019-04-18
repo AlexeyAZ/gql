@@ -1,25 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames'
+import styled, { css } from 'styled-components'
 
-import styles from './button.module.less'
-import vars from '../../styles/_variables.module.less'
-console.log(vars)
+const Wrap = styled.button`
+  ${({ theme: { trans, colors, borderRadius } }) => css`
+    transition: ${trans.default};
+    background-color: ${colors.violet.main};
+    border-radius: ${borderRadius.default};
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 22px;
+    line-height: 26px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 22px;
+    padding-right: 22px;
+  `}
+`
 
-const Button = ({ className, children, ...rest }) => {
-  return (
-    <button className={cn(styles.wrap, className)} {...rest}>
-      {children}
-    </button>
-  )
+const Button = ({ children }) => {
+  return <Wrap>{children}</Wrap>
 }
 Button.propTypes = {
-  className: PropTypes.object,
   children: PropTypes.any,
 }
 Button.defaultProps = {
-  className: {},
   children: null,
 }
-
 export default Button

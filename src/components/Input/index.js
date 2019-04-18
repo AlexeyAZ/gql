@@ -1,7 +1,31 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import styled, { css } from 'styled-components'
 
-import styles from './input.module.scss'
+const Label = styled.label`
+  margin-bottom: 4px;
+  display: block;
+`
+
+const InputField = styled.input`
+  ${({ theme: { trans, borderRadius } }) => css`
+    transition: ${trans.default};
+    background-color: white;
+    border-radius: ${borderRadius.default};
+    border: none;
+    outline: none;
+    padding-top: 5px;
+    padding-bottom: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 100%;
+    &::placeholder {
+      color: rgba(34, 40, 47, 0.35);
+    }
+    &:focus {
+    }
+  `}
+`
 
 class Input extends Component {
   state = {
@@ -20,14 +44,20 @@ class Input extends Component {
     const { label, id } = this.props
     return (
       <div>
-        <label htmlFor={id} className={styles.label}>
-          {label}
-        </label>
-        <input className={styles.field} id={id} onChange={this.handleChange} value={value} />
+        <Label htmlFor={id}>{label}</Label>
+        <InputField id={id} onChange={this.handleChange} value={value} />
       </div>
     )
   }
 }
-
-Input.propTypes = {}
+Input.propTypes = {
+  label: PropTypes.any,
+  id: PropTypes.string,
+  onChange: PropTypes.func,
+}
+Input.defaultProps = {
+  label: null,
+  id: null,
+  onChange: () => {},
+}
 export default Input

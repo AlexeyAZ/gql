@@ -1,9 +1,0 @@
-@import '../../styles/variables';
-
-.link {
-  transition: $transDefault;
-  color: map-get($green, 'darken');
-  &:hover {
-    color: map-get($green, 'darkest');
-  }
-}

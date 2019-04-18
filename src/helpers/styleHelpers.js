@@ -23,6 +23,6 @@ const getStyleObj = obj => {
   return variables
 }
 
-const getNumValue = value => parseInt(value)
+const getIntValue = value => parseInt(value, 10)
 
-export default { getStyleObj, getNumValue }
+export default { getStyleObj, getIntValue }

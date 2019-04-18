@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router'
+import PropTypes from 'prop-types'
 import { graphql, compose, withApollo } from 'react-apollo'
 import get from 'lodash/get'
 
@@ -12,23 +12,17 @@ import { auth } from '../../helpers'
 
 import { FormLogin } from '../../components/forms'
 
-import styles from './loginUser.module.scss'
-import { ReactComponent as Logo } from '../../images/logo/logo-main.svg'
-
 const { getTokenBody, setAuthCookie, setUserIdCookie } = auth
 
 class LoginUser extends Component {
-  // componentDidMount() {
-  //   const { hideSidebar } = this.props
-  //   hideSidebar()
-  // }
   handleSwitchSidebar = e => {
+    const { switchSidebar } = this.props
     e.preventDefault()
-    this.props.switchSidebar()
+    switchSidebar()
   }
 
   handleSubmit = fields => {
-    const { loginUser, client, location, history } = this.props
+    const { client, history } = this.props
     client
       .query({
         query: queries.users.LOGIN_USER,
@@ -39,7 +33,6 @@ class LoginUser extends Component {
         fetchPolicy: 'network-only',
       })
       .then(result => {
-        console.log(result)
         const token = get(result, 'data.loginUser.token', null)
         const formatToken = getTokenBody(token)
         const id = get(result, 'data.loginUser._id', null)
@@ -54,21 +47,23 @@ class LoginUser extends Component {
 
   render() {
     return (
-      // <div className={styles.wrap}>
-      //   <Logo />
       <Window size="s" autoHeight isSidebarShow={false} isHeaderShow={false}>
         <FormLogin onFormSubmit={this.handleSubmit} />
       </Window>
-      // </div>
     )
   }
 }
-
-export default withRouter(
-  compose(
-    withApollo,
-    graphql(mutations.windows.SWITCH_SIDEBAR, {
-      name: 'switchSidebar',
-    })
-  )(LoginUser)
-)
+LoginUser.propTypes = {
+  client: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  switchSidebar: PropTypes.func,
+}
+LoginUser.defaultProps = {
+  switchSidebar: () => {},
+}
+export default compose(
+  withApollo,
+  graphql(mutations.windows.SWITCH_SIDEBAR, {
+    name: 'switchSidebar',
+  })
+)(LoginUser)

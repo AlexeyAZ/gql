@@ -1,20 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames'
+import styled, { css } from 'styled-components'
 
-import styles from './content.module.scss'
+const Wrap = styled.div`
+  ${props => css`
+    background-color: rgba(255, 255, 255, 0.55);
+    position: absolute;
+    top: ${props.theme.window.header.height};
+    left: ${props.withSidebar ? props.theme.window.sidebar.width : 0};
+    right: 0;
+    bottom: 0;
+  `}
+`
 
-const Content = ({ size, children }) => {
-  return (
-    <div className={cn(styles.wrap, styles[`wrap-${size}`])}>
-      <div className={styles.inner}>{children}</div>
-    </div>
-  )
+const Content = ({ withSidebar, children }) => {
+  return <Wrap withSidebar={withSidebar}>{children}</Wrap>
 }
-
 Content.propTypes = {
-  size: PropTypes.string.isRequired,
-  children: PropTypes.any.isRequired,
+  withSidebar: PropTypes.bool,
+  children: PropTypes.any,
 }
-
+Content.defaultProps = {
+  withSidebar: false,
+  children: null,
+}
 export default Content

@@ -1,9 +1,20 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { Input, FormField, Button, Link } from '../../index'
 
-import styles from './formLogin.module.scss'
+const Wrap = styled.div`
+  justify-content: center;
+`
+const FormFields = styled.div`
+  margin-bottom: 32px - ${props => props.theme.formField.bottomOffset};
+`
+const ActionsWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
 
 class FormLogin extends Component {
   state = {
@@ -39,9 +50,9 @@ class FormLogin extends Component {
   render() {
     const { fields } = this.state
     return (
-      <div className={styles.wrap}>
-        <form onSubmit={this.handleFormSubmit} className={styles.form}>
-          <div className={styles.formFields}>
+      <Wrap>
+        <form onSubmit={this.handleFormSubmit}>
+          <FormFields>
             {Object.keys(fields).map(field => (
               <FormField key={field}>
                 <Input
@@ -51,20 +62,20 @@ class FormLogin extends Component {
                 />
               </FormField>
             ))}
-          </div>
+          </FormFields>
 
-          <div className={styles.actionsWrap}>
-            <Button className={styles.button}>Sign in</Button>
+          <ActionsWrap>
+            <Button>Sign in</Button>
             <span>
               or <Link to="/create-user">Create user</Link>
             </span>
-          </div>
+          </ActionsWrap>
         </form>
-      </div>
+      </Wrap>
     )
   }
 }
-
-FormLogin.propTypes = {}
-
+FormLogin.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+}
 export default FormLogin

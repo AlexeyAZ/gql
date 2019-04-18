@@ -1,24 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames'
 import { Link as RouterLink } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 
-import styles from './link.module.scss'
+const Wrap = styled(RouterLink)`
+  ${({
+    theme: {
+      trans,
+      colors: { blue },
+    },
+  }) => css`
+    transition: ${trans.default};
+    color: ${blue.darken};
+    &:hover {
+      color: ${blue.darkest};
+    }
+  `}
+`
 
-const Link = ({ className, children, ...rest }) => {
-  return (
-    <RouterLink className={cn(styles.link, className)} {...rest}>
-      {children}
-    </RouterLink>
-  )
+const Link = ({ children, ...rest }) => {
+  return <Wrap {...rest}>{children}</Wrap>
 }
 Link.propTypes = {
-  className: PropTypes.object,
   children: PropTypes.any,
 }
 Link.defaultProps = {
-  className: {},
   children: null,
 }
-
 export default Link

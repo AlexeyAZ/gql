@@ -1,23 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames'
+import styled, { css } from 'styled-components'
 
-import styles from './formField.module.scss'
+const Wrap = styled.div`
+  margin-bottom: ${props => props.theme.formField.bottomOffset};
+`
 
-const FormField = ({ className, children, ...rest }) => {
-  return (
-    <div className={cn(styles.wrap, className)} {...rest}>
-      {children}
-    </div>
-  )
-}
+const FormField = ({ children }) => <Wrap>{children}</Wrap>
 FormField.propTypes = {
-  className: PropTypes.object,
   children: PropTypes.any,
 }
 FormField.defaultProps = {
-  className: {},
   children: null,
 }
-
 export default FormField

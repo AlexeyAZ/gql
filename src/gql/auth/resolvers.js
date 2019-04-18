@@ -16,8 +16,6 @@ export default {
           query: queries.auth.GET_AUTH_STATUS,
         })
 
-        console.log(1111)
-
         const data = {
           auth: {
             ...previous.auth,
