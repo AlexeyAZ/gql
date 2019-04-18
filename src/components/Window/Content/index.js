@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
 const Wrap = styled.div`
-  ${props => css`
+  ${({ theme: { trans, window }, ...rest }) => css`
+    transition: ${trans.default};
     background-color: rgba(255, 255, 255, 0.55);
     position: absolute;
-    top: ${props.theme.window.header.height};
-    left: ${props.withSidebar ? props.theme.window.sidebar.width : 0};
+    top: ${window.header.height};
+    left: ${rest.withSidebar ? window.sidebar.width : 0};
     right: 0;
     bottom: 0;
   `}
