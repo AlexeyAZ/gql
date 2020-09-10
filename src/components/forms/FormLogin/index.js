@@ -56,6 +56,7 @@ class FormLogin extends Component {
             {Object.keys(fields).map(field => (
               <FormField key={field}>
                 <Input
+                  value={fields[field].value}
                   id={fields[field].name}
                   onChange={value => this.handleInputChange(field, value)}
                   label={fields[field].label}

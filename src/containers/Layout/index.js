@@ -16,7 +16,7 @@ import routes from '../../routes'
 import * as queries from '../../gql/queries'
 import * as mutations from '../../gql/mutations'
 
-const { setAuthCookie, setUserIdCookie } = auth
+const { setAuthToken, setUserId } = auth
 
 const { userIsAuth } = auth
 
@@ -63,8 +63,8 @@ class Layout extends Component {
         const token = get(result, 'data.loginUser.token', null)
         const id = get(result, 'data.loginUser._id', null)
         if (token) {
-          setAuthCookie(token)
-          setUserIdCookie(id)
+          setAuthToken(token)
+          setUserId(id)
           client
             .mutate({
               mutation: mutations.auth.SET_AUTH_STATUS,

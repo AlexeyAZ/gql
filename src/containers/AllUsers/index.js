@@ -1,17 +1,12 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { graphql, compose } from 'react-apollo'
 import get from 'lodash/get'
 
-import posed, { PoseGroup } from 'react-pose'
-
-import { Window, Link } from '../../components'
+import { Window } from '../../components'
 
 import * as queries from '../../gql/queries'
-
-const Container = posed.div({
-  enter: { staggerChildren: 50 },
-})
 
 const dataTemplate = {
   email: 'Email',
@@ -35,6 +30,9 @@ const UserInfo = ({ data }) => (
     </tbody>
   </table>
 )
+UserInfo.propTypes = {
+  data: PropTypes.object.isRequired,
+}
 
 class AllUsers extends Component {
   render() {
@@ -46,27 +44,16 @@ class AllUsers extends Component {
       getAllUsers &&
       get(match, 'params.id', null) &&
       getAllUsers.find(item => item._id === match.params.id)
-    return (
-      <Window
-        sidebarContent={
-          <Fragment>
-            {getAllUsers && (
-              <ul>
-                {getAllUsers.map(user => (
-                  <li key={user._id}>
-                    <Link to={`/users/${user._id}`}>
-                      {user.nickName || user.firstName || user.email}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </Fragment>
-        }
-      >
-        {activeUser && <UserInfo data={activeUser} />}
-      </Window>
-    )
+
+    const sidebarData =
+      getAllUsers &&
+      getAllUsers.length > 0 &&
+      getAllUsers.map(({ _id, nickName, firstName, email }) => ({
+        key: _id,
+        title: nickName || firstName || email,
+        href: `/users/${_id}`,
+      }))
+    return <Window sidebarData={sidebarData}>{activeUser && <UserInfo data={activeUser} />}</Window>
   }
 }
 

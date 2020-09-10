@@ -12,7 +12,7 @@ import { auth } from '../../helpers'
 
 import { FormLogin } from '../../components/forms'
 
-const { getTokenBody, setAuthCookie, setUserIdCookie } = auth
+const { getTokenBody, setAuthToken, setUserId } = auth
 
 class LoginUser extends Component {
   handleSwitchSidebar = e => {
@@ -37,9 +37,9 @@ class LoginUser extends Component {
         const formatToken = getTokenBody(token)
         const id = get(result, 'data.loginUser._id', null)
         if (token) {
-          setAuthCookie(token)
-          setUserIdCookie(id)
-          history.push({ pathname: '/user', state: { token: formatToken, id } })
+          setAuthToken(token)
+          setUserId(id)
+          history.push({ pathname: '/notes', state: { token: formatToken, id } })
         }
       })
       .catch(err => console.log(err))

@@ -1,10 +1,32 @@
-export { default as Input } from './Input'
-export { default as FormField } from './FormField'
-export { default as Button } from './Button'
-export { default as Header } from './Header'
-export { default as Content } from './Content'
-export { default as Window } from './Window'
-export { default as Footer } from './Footer'
-export { default as Modal } from './Modal'
-export { default as Link } from './Link'
-export { default as Redirect } from './Redirect'
+import Link from './Link'
+import Switch from './Switch'
+import InputArea from './InputArea'
+import { RichTextEditor, Editor, Actions } from './TextEditor'
+import Input from './Input'
+import FormField from './FormField'
+import Button from './Button'
+import Header from './Header'
+import Content from './Content'
+import Footer from './Footer'
+import Modal from './Modal'
+import Redirect from './Redirect'
+import { Window, Container } from './window'
+
+export {
+  Link,
+  Switch,
+  FormField,
+  Input,
+  InputArea,
+  RichTextEditor,
+  Editor,
+  Actions,
+  Button,
+  Header,
+  Content,
+  Footer,
+  Modal,
+  Redirect,
+  Window,
+  Container,
+}

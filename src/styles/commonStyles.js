@@ -1,5 +1,13 @@
 const commonStyles = {
+  mediaQueries: {
+    s: 360,
+    m: 768,
+    l: 992,
+    xl: 1366,
+    xxl: 1600,
+  },
   trans: {
+    defaultDuration: '300ms',
     default: '0.3s ease',
   },
   borderRadius: {
@@ -11,15 +19,46 @@ const commonStyles = {
   },
   content: {
     maxWidth: '1366px',
-    verticalOffsets: '50px',
-    horizontalOffsets: '50px',
+    verticalOffsets: {
+      s: '20px',
+      m: '20px',
+      l: '50px',
+      xl: '50px',
+    },
+    horizontalOffsets: {
+      s: '20px',
+      m: '20px',
+      l: '50px',
+      xl: '50px',
+    },
   },
   window: {
+    maxWidth: '1366px',
     header: {
-      height: '50px',
+      height: '46px',
+    },
+    content: {
+      verticalOffsets: {
+        s: '20px',
+        m: '50px',
+        l: '50px',
+        xl: '50px',
+      },
+      horizontalOffsets: {
+        s: '20px',
+        m: '68px',
+        l: '68px',
+        xl: '68px',
+      },
     },
     sidebar: {
       width: '300px',
+    },
+    size: {
+      s: '360px',
+      m: '800px',
+      l: '1024px',
+      xl: '1366px',
     },
   },
   sidebar: {
@@ -37,10 +76,17 @@ const commonStyles = {
   colors: {
     violet: {
       main: '#7065ef',
+      light: '#8D84F0',
     },
     blue: {
       darkest: '#153741',
       darken: '#3c798a',
+      lighten: '#a6c8e3',
+    },
+    gray: {
+      main: '#434343',
+      light: '#7B7B7B',
+      lighten: '#E5E5E5',
     },
   },
   zIndex: {

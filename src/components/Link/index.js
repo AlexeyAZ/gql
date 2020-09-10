@@ -18,8 +18,12 @@ const Wrap = styled(RouterLink)`
   `}
 `
 
-const Link = ({ children, ...rest }) => {
-  return <Wrap {...rest}>{children}</Wrap>
+const Link = ({ className, children, ...rest }) => {
+  return (
+    <Wrap className={className} {...rest}>
+      {children}
+    </Wrap>
+  )
 }
 Link.propTypes = {
   children: PropTypes.any,

@@ -1,6 +1,7 @@
 import commonStyles from './commonStyles'
 import mainTheme from './mainTheme'
 import secondaryTheme from './secondaryTheme'
+import media from './media'
 
 const theme = {
   main: {
@@ -12,5 +13,9 @@ const theme = {
     ...secondaryTheme,
   },
 }
+
+Object.keys(theme).forEach(item => {
+  theme[item].media = media(theme[item].mediaQueries)
+})
 
 export default theme

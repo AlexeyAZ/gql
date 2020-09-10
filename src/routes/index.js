@@ -1,13 +1,14 @@
 import React from 'react'
-import { AllUsers, User, CreateUser, LoginUser } from '../containers'
-
+import { AllUsers, User, CreateUser, LoginUser, CreateNote, Notes } from '../containers'
 import { Redirect } from '../components/index'
+
+import { ROUTE_ALL_NOTES } from '../constants'
 
 const routes = [
   {
     path: '/',
     title: 'Пользователи',
-    render: props => <Redirect to="/login" />,
+    render: () => <Redirect to="/login" />,
     exact: true,
     private: false,
   },
@@ -40,6 +41,27 @@ const routes = [
     component: CreateUser,
     exact: true,
     private: false,
+  },
+  {
+    path: '/create-note',
+    title: 'Создать заметку',
+    component: CreateNote,
+    exact: true,
+    private: true,
+  },
+  {
+    path: '/notes',
+    component: () => <Redirect to={`/notes/${ROUTE_ALL_NOTES}`} />,
+    title: 'Все заметки',
+    exact: true,
+    private: true,
+  },
+  {
+    path: '/notes/:id',
+    title: 'Заметка',
+    component: Notes,
+    exact: true,
+    private: true,
   },
   {
     path: '/login',

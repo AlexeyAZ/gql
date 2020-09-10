@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 export default {
   GET_ALL_USERS: gql`
-    query {
+    query GET_ALL_USERS {
       getAllUsers {
         _id
         firstName
@@ -24,11 +24,18 @@ export default {
     }
   `,
   GET_USER: gql`
-    query($id: String!) {
+    query GET_USER($id: String!) {
       getUser(_id: $id) {
         email
         firstName
         lastName
+        posts {
+          _id
+          title
+          content
+          createdAt
+          updatedAt
+        }
       }
     }
   `,

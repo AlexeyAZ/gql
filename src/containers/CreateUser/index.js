@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { compose, graphql, withApollo } from 'react-apollo'
 import get from 'lodash/get'
@@ -7,11 +8,10 @@ import { FormCreateUser } from '../../components/forms'
 import { Window } from '../../components/index'
 
 import * as mutations from '../../gql/mutations'
-import * as queries from '../../gql/queries'
 
 import { auth } from '../../helpers'
 
-const { getTokenBody, setAuthCookie, setUserIdCookie } = auth
+const { getTokenBody, setAuthToken, setUserId } = auth
 
 class CreateUser extends Component {
   handleCreateUser = fields => {
@@ -26,13 +26,12 @@ class CreateUser extends Component {
         password: fields.password.value,
       },
     }).then(result => {
-      console.log(result)
       const token = get(result, 'data.createUser.token', null)
       const formatToken = getTokenBody(token)
       const id = get(result, 'data.createUser._id', null)
       if (token) {
-        setAuthCookie(token)
-        setUserIdCookie(id)
+        setAuthToken(token)
+        setUserId(id)
         history.push({ pathname: '/user', state: { token: formatToken, id } })
       }
     })
@@ -46,7 +45,10 @@ class CreateUser extends Component {
     )
   }
 }
-
+CreateUser.propTypes = {
+  createUser: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+}
 export default compose(
   withRouter,
   withApollo,

@@ -2,38 +2,53 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
+import SidebarList from '../SidebarList'
+
 const Wrap = styled.div`
-  ${props => css`
-    transition: ${props.theme.trans.default};
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  ${({ show, showMobile, theme: { window, trans, media } }) => css`
+    transition: ${trans.default};
     overflow: hidden;
     position: absolute;
-    top: ${props.theme.window.header.height};
-    bottom: 0;
+    top: 0;
     left: 0;
-    width: ${props.show ? props.theme.window.sidebar.width : 0};
+    height: 100%;
+    flex-shrink: 0;
+    width: ${show && showMobile ? '100%' : 0};
     z-index: 1;
+    ${media.l`
+      width: ${show ? window.sidebar.width : 0};
+    `}
+  `}
+`
+
+const Content = styled.div`
+  ${({ theme: { window, media } }) => css`
+    height: 100%;
+    width: 100%;
+    ${media.l`
+      width: ${window.sidebar.width};
+    `}
   `}
 `
 
 class Sidebar extends Component {
   render() {
-    const { show, switchSidebar, hideSidebar, showSidebar, children } = this.props
+    const { show, showMobile, data } = this.props
     return (
-      <Wrap show={show}>
-        {/* <Menu hideSidebar={hideSidebar} showSidebar={showSidebar} switchSidebar={switchSidebar} /> */}
-        {children}
+      <Wrap show={show} showMobile={showMobile}>
+        <Content>
+          <SidebarList data={data} />
+        </Content>
       </Wrap>
     )
   }
 }
 Sidebar.propTypes = {
   show: PropTypes.bool,
-  children: PropTypes.any,
+  data: PropTypes.array,
 }
 Sidebar.defaultProps = {
   show: true,
-  children: null,
+  data: [],
 }
 export default Sidebar

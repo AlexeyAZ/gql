@@ -7,14 +7,15 @@ import { ApolloLink, Observable } from 'apollo-link'
 import merge from 'lodash/merge'
 
 import * as resolvers from './resolvers'
-import * as queries from './queries'
 import * as mutations from './mutations'
 
-import { auth } from '../helpers'
-import { history } from '../config'
+import { auth, server } from '../helpers'
 
 const { getAuthToken } = auth
+const { getServerUrl } = server
+
 const cache = new InMemoryCache()
+const serverUrl = getServerUrl()
 
 const request = async operation => {
   const token = await getAuthToken()
@@ -98,23 +99,13 @@ const client = new ApolloClient({
     }),
     requestLink,
     new HttpLink({
-      uri: 'http://localhost:5000/graphql',
+      uri: `${serverUrl}/graphql`,
       credentials: 'include',
     }),
   ]),
   cache,
   resolvers: { ...merge(...Object.values(resolvers)) }.resolvers,
 })
-// client.watchQuery({
-//   query: queries.auth.GET_AUTH_STATUS
-// })
-//   .subscribe(result => {
-//     console.log(result)
-//     // const sitedata: any = result.data;
-//     // this.sites = sitedata.cmp_site;
-//     // this.loading = result.loading;
-//     // this.error = result.errors;
-//   })
 cache.writeData({
   data: { ...merge(...Object.values(resolvers)) }.defaults,
 })

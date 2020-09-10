@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const Wrap = styled.div`
   background-color: rgba(0, 0, 0, 0.2);

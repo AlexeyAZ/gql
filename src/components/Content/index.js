@@ -2,21 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
-import { styleHelpers } from '../../helpers'
-
-const { getIntValue } = styleHelpers
-
 const Wrap = styled.div`
-  ${props => css`
-    position: fixed;
-    top: ${getIntValue(props.theme.header.height) +
-      getIntValue(props.theme.content.verticalOffsets)}px;
-    bottom: ${getIntValue(props.theme.footer.height) +
-      getIntValue(props.theme.content.verticalOffsets)}px;
-    left: ${props.theme.content.horizontalOffsets};
-    right: ${props.theme.content.horizontalOffsets};
-    width: calc(100% - ${2 * getIntValue(props.theme.content.horizontalOffsets)}px);
-    max-width: ${props.theme.content.maxWidth};
+  ${({ theme: { content, media } }) => css`
+    overflow: auto;
+    padding-top: ${content.verticalOffsets.s};
+    padding-bottom: ${content.verticalOffsets.s};
+    padding-left: ${content.horizontalOffsets.s};
+    padding-right: ${content.horizontalOffsets.s};
+    height: 100%;
+    ${media.l`
+      padding-top: ${content.verticalOffsets.l};
+      padding-bottom: ${content.verticalOffsets.l};
+      padding-left: ${content.horizontalOffsets.l};
+      padding-right: ${content.horizontalOffsets.l};
+    `}
   `}
 `
 
